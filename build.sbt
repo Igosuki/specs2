@@ -18,9 +18,7 @@ lazy val specs2 = project.in(file(".")).
     packagedArtifacts := Map.empty
   ).aggregate(
     fpJvm, catsJvm, commonJvm, matcherJvm, coreJvm, matcherExtraJvm, scalazJvm, html,
-    analysisJvm, shapelessJvm, form, markdown, gwt, junitJvm, scalacheckJvm, mockJvm,
-    tests, fpJs, commonJs, matcherJs, coreJs, matcherExtraJs, scalazJs, analysisJs,
-    shapelessJs, junitJs, scalacheckJs, mockJs
+    analysisJvm, shapelessJvm, form, markdown, gwt, junitJvm, scalacheckJvm, mockJvm
   )
 
 val scala211 = "2.11.12"
@@ -32,21 +30,12 @@ lazy val specs2Settings = Seq(
   scalazVersion in GlobalScope := "7.2.27",
   specs2ShellPrompt,
   scalaVersion := "2.12.8",
-  crossScalaVersions := Seq(scalaVersion.value, scala211, "2.13.0"))
+  crossScalaVersions := Seq(scalaVersion.value, "2.13.0"))
 
 lazy val versionSettings =
   Seq(
-    version := {
-      import sys.process._
-      if (!"git tag".!!.contains(version.value)) {
-        val commish = "git log --pretty=format:%h -n 1".!!.trim
-        version.value+"-"+commish+"-"+timestamp(new Date)
-      }
-      else
-        version.value
-    }
+    version := version.value
   )
-
 
 lazy val latestTag = "git tag"
 
